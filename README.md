@@ -23,7 +23,6 @@ todo-list-js/
 
 ## 🛠️ How to Run
 1. Clone the repo:
-   ```bash
   git clone https://github.com/TanmayMargaj35/todo_list_js.git
 
 2. Open index.html in any browser.
