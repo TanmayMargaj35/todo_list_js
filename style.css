@@ -85,3 +85,17 @@ li {
     justify-content: space-between;
     align-items: center;
 }
+
+li.done {
+    text-decoration: line-through;
+    color: gray;
+}
+
+li button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}

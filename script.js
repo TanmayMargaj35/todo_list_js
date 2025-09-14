@@ -44,6 +44,12 @@ function toggleTask(id){
     renderTasks(getActiveFilter());
 }
 
+function deleteTask(id){
+    tasks = tasks.filter(task => task.id !== id);
+    saveTasks();
+    renderTasks(getActiveFilter());
+}
+
 function renderTasks(filter = "all") {
     taskList.innerHTML = "";
     let filteredTasks = tasks;
@@ -63,6 +69,7 @@ function renderTasks(filter = "all") {
         span.addEventListener("click", () => toggleTask(task.id));
 
         li.appendChild(span);
+        li.appendChild(deleteBtn);
         taskList.appendChild(li);
     });
 }
