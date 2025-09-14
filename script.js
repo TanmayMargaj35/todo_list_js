@@ -5,7 +5,7 @@ const filterButtons = document.querySelectorAll(".filters button");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-addTaskBtn.addEventListener("click",addTask);
+addTaskBtn.addEventListener("click", addTask);
 taskInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") addTask();
 });
@@ -13,12 +13,13 @@ taskInput.addEventListener("keypress", (e) => {
 filterButtons.forEach(btn => {
     btn.addEventListener("click", () => {
         document.querySelector(".filters button.active").classList.remove("active");
+        btn.classList.add("active"); // ✅ Fix: Add active class to clicked button
         renderTasks(btn.dataset.filter);
     });
 });
 
 function addTask() {
-    const taskText = taskInput.ariaValueMax.trim();
+    const taskText = taskInput.value.trim(); // ✅ Fix: use .value not ariaValueMax
     if (taskText === "") {
         alert("Enter Task Before Submitting");
         return;
@@ -36,10 +37,16 @@ function addTask() {
     taskInput.value = "";
 }
 
-function toggleTask(id){
-    tasks = tasks.map(task => 
-        task.id === id ? {...task, completed : !task.completed} : task
+function toggleTask(id) {
+    tasks = tasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
     );
+    saveTasks();
+    renderTasks(getActiveFilter());
+}
+
+function deleteTask(id) { // ✅ Added delete function
+    tasks = tasks.filter(task => task.id !== id);
     saveTasks();
     renderTasks(getActiveFilter());
 }
@@ -54,7 +61,7 @@ function renderTasks(filter = "all") {
         filteredTasks = tasks.filter(task => !task.completed);
     }
 
-    filteredTasks.forEach (task => {
+    filteredTasks.forEach(task => {
         const li = document.createElement("li");
         if (task.completed) li.classList.add("done");
 
@@ -80,5 +87,5 @@ function getActiveFilter() {
     return document.querySelector(".filters button.active").dataset.filter;
 }
 
-// Initial render 
+// Initial render
 renderTasks();
