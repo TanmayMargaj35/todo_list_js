@@ -44,12 +44,6 @@ function toggleTask(id){
     renderTasks(getActiveFilter());
 }
 
-function deleteTask(id) {
-    tasks = tasks.filter(task => task.id !== id);
-    saveTasks();
-    renderTasks(getActiveFilter());
-}
-
 function renderTasks(filter = "all") {
     taskList.innerHTML = "";
     let filteredTasks = tasks;
