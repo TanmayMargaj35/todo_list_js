@@ -44,6 +44,12 @@ function toggleTask(id){
     renderTasks(getActiveFilter());
 }
 
+function deleteTask(id) {
+    tasks = tasks.filter(task => task.id !== id);
+    saveTasks();
+    renderTasks(getActiveFilter());
+}
+
 function renderTasks(filter = "all") {
     taskList.innerHTML = "";
     let filteredTasks = tasks;
@@ -62,13 +68,18 @@ function renderTasks(filter = "all") {
         span.textContent = task.text;
         span.addEventListener("click", () => toggleTask(task.id));
 
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => deleteTask(task.id));
+
         li.appendChild(span);
+        li.appendChild(deleteBtn);
         taskList.appendChild(li);
     });
 }
 
 function saveTasks() {
-    localStorage.setItem("tasks",JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function getActiveFilter() {
